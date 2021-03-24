@@ -21,10 +21,7 @@ class Time_calc():
         return self.elapsed
         
     def reset(self):
-        self.state = 0
-        self.initial = 0
-        self.final = 0
-        self.elapsed = 0
+        self.__init__()
 
     def parser(self, val):
         val = str(val)
@@ -40,7 +37,7 @@ class Time_calc():
         return minu + sec + res[4:6]
 
 if __name__ == "__main__":
-    tim = Timer()
+    tim = Time_calc()
 
     tim.start()
     
