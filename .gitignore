@@ -2,6 +2,7 @@
 test*.*
 *.bak
 *.txt
+*.json
 
 __pycache__/
 .vscode/
