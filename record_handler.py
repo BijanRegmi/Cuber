@@ -16,8 +16,7 @@ class RecordHandler():
         
         if not (mode in self.datas["metadata"]["count"].keys()):
             #FIRST TIME
-            
-            if time == "dnf":
+            if time == inf:
                 self.datas["metadata"]["count"][mode] = 0
                 self.datas["metadata"]["best"][mode] = inf
                 self.datas["metadata"]["average"][mode] = 0
@@ -30,7 +29,7 @@ class RecordHandler():
         else:
             #DATA EXISTS
             
-            if time != "dnf":
+            if time != inf:
                 avg = self.datas["metadata"]["average"][mode]
                 c = self.datas["metadata"]["count"][mode]
 
@@ -39,7 +38,18 @@ class RecordHandler():
                 self.datas["metadata"]["average"][mode] = (avg * c + time) / (c + 1)
         
         self.datas["datas"][mode].append([{"date":date, "time":time, "comment":comment}])
+
+    def average(self, mode, n):
+        if len(self.datas["datas"][mode]) < n:
+            return None
+        else:
+            l = len(self.datas["datas"][mode])
+            times = [self.datas["datas"][mode][i][0]["time"] for i in range(l-n, l)]
         
+        times.remove(min(times))
+        times.remove(max(times))
+        return sum(times)/(n-2)
+
     def close(self):
         print("dumping")
         with open("records.json","w+") as f:
