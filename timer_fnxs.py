@@ -26,6 +26,19 @@ class Time_calc():
         self.final = 0
         self.elapsed = 0
 
+    def parser(self, val):
+        val = str(val)
+        res = ""
+        for i in range(6):
+            try:
+                res = val[-8 - i] + res
+            except:
+                res = "0" + res
+        t_s = int(res[0:4])
+        minu = str(t_s // 60).zfill(2)
+        sec = str(t_s % 60).zfill(2)
+        return minu + sec + res[4:6]
+
 if __name__ == "__main__":
     tim = Timer()
 
