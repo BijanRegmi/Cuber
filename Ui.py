@@ -322,13 +322,13 @@ class display(object):
         self._colon2.setText(_translate("Form", """<html><head></head><body ><span style=" font-size:72pt;">:</span></body></html>"""))
         #endregion Colon text
 
-class Timer(object):
-    def __init__(self, Timer):
-        Timer.setObjectName("Timer")
-        Timer.resize(660, 294)
+class Ui_Timer(object):
+    def __init__(self, Form):
+        Form.setObjectName("Timer")
+        Form.resize(660, 294)
 
         #Layout for Main Window
-        verticalLayout = QtWidgets.QVBoxLayout(Timer)
+        verticalLayout = QtWidgets.QVBoxLayout(Form)
         verticalLayout.setObjectName("verticalLayout")
 
         #Main Timer Widget
@@ -336,7 +336,7 @@ class Timer(object):
         timer_holder.setObjectName("timer")
 
         #LCD Object Creation and Adding Inside Main Timer Widget
-        self.lcd = display(Timer)
+        self.lcd = display(Form)
         timer_holder.addWidget(self.lcd.main_holder)
 
         #Horizontal Spacer Between LCD and Contols
@@ -344,18 +344,18 @@ class Timer(object):
         timer_holder.addItem(spacerItem)
 
         #Time Controller Object Creation and Adding Inside Main Timer Widget
-        self.controller = control_deck(Timer)
+        self.controller = control_deck(Form)
         timer_holder.addWidget(self.controller.main_holder)
 
         #Verrtical Layout to Hold Spacer, Time Controller and LCD in Place
         verticalLayout.addLayout(timer_holder)
 
-        self.retranslateUi(Timer)
-        QtCore.QMetaObject.connectSlotsByName(Timer)
+        self.retranslateUi(Form)
+        QtCore.QMetaObject.connectSlotsByName(Form)
 
-    def retranslateUi(self, Timer):
+    def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Timer.setWindowTitle(_translate("Timer", "Timer"))
+        Form.setWindowTitle(_translate("Timer", "Timer"))
 
 if __name__ == "__main__":
     import sys
@@ -364,7 +364,7 @@ if __name__ == "__main__":
     #Main Window
     main_window = QtWidgets.QWidget()
     
-    ui = Timer(main_window)
+    ui = Ui_Timer(main_window)
     
     main_window.show()
     sys.exit(app.exec_())
