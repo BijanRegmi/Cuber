@@ -1,16 +1,10 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class control_deck(object):
+class control_deck():
     def __init__(self, Form):
-        
-        Form.resize(420,80)
-        
-        #region hierarchy
-
-        #endregion hierarchy
 
         #region Creating Layers
-        self.main_holder = QtWidgets.QStackedWidget(Form)
+        self.control_deck_holder = QtWidgets.QStackedWidget(Form)
         timer_controls = QtWidgets.QWidget()
         layout_timer_controls = QtWidgets.QHBoxLayout()
         self.btn_pause = QtWidgets.QPushButton(timer_controls)
@@ -31,9 +25,7 @@ class control_deck(object):
         #endregion Creating Layouts
 
         #region SetObjectName
-        Form.setObjectName("Control Deck")
-
-        self.main_holder.setObjectName("main_holder")
+        self.control_deck_holder.setObjectName("control_deck_holder")
         timer_controls.setObjectName("timer_controls")
         layout_timer_controls.setObjectName("layout_timer_controls")
         self.btn_pause.setObjectName("btn_pause")
@@ -63,7 +55,7 @@ class control_deck(object):
         self.btn_dnf.setCheckable(True)
         self.btn_ok.setCheckable(True)
         self.btn_plus2.setCheckable(True)
-
+        #endregion Button Properties
 
         #region Setting Icons
         #pause
@@ -114,8 +106,6 @@ class control_deck(object):
         self.btn_dnf.setFont(font)
         self.btn_plus2.setFont(font)
         #endregion Setting Fonts
-
-        #endregion Button Properties
         
         #region layout properties
         layout_timer_controls.setContentsMargins(10, 10, 10, 10)
@@ -146,8 +136,8 @@ class control_deck(object):
         layout_time_controls.addWidget(self.btn_dnf)
         layout_time_controls.addWidget(self.btn_plus2)
         #pages inside stacked widget
-        self.main_holder.addWidget(timer_controls)
-        self.main_holder.addWidget(time_controls)
+        self.control_deck_holder.addWidget(timer_controls)
+        self.control_deck_holder.addWidget(time_controls)
         #endregion ADD WIDGET
         
         #region ADDING LAYOUTS
@@ -155,34 +145,6 @@ class control_deck(object):
         horizontalLayout_7.addLayout(layout_timer_controls)
         #endregion ADDING LAYOUTS
 
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
-
-    def retranslateUi(self, Form):
-        _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Control Deck"))
-
-        #region Shortcuts
-        self.btn_start.setShortcut(_translate("Form", "Space"))
-        self.btn_pause.setShortcut(_translate("Form", "Space"))
-        self.btn_reset.setShortcut(_translate("Form", "Return"))
-        self.btn_ok.setShortcut(_translate("Form", "Return"))
-        self.btn_dnf.setShortcut(_translate("Form", "Esc"))
-        self.btn_del.setShortcut(_translate("Form", "Del"))
-        self.btn_plus2.setShortcut(_translate("Form", "+"))
-        #endregion Shortcuts
-
-        #region Btn Texts
-        self.btn_start.setText(_translate("Form", "Start"))
-        self.btn_pause.setText(_translate("Form", "Pause"))
-        self.btn_reset.setText(_translate("Form", "Reset"))
-        self.btn_records.setText(_translate("Form", "Records"))
-        self.btn_ok.setText(_translate("Form", "OK"))
-        self.btn_del.setText(_translate("Form", "Del"))
-        self.btn_dnf.setText(_translate("Form", "DNF"))
-        self.btn_plus2.setText(_translate("Form", "+2"))
-        #endregion Btn Texts
-    
     def _state_stopped(self, sig):
         self.btn_start.setEnabled(True)
         self.btn_pause.setEnabled(False)
@@ -198,7 +160,7 @@ class control_deck(object):
         self.btn_del.setShortcutEnabled(False)
         self.btn_dnf.setShortcutEnabled(False)
         self.btn_plus2.setShortcutEnabled(False)
-        self.main_holder.setCurrentIndex(0)
+        self.control_deck_holder.setCurrentIndex(0)
     
     def _state_running(self, sig):
         self.btn_start.setEnabled(False)
@@ -215,7 +177,7 @@ class control_deck(object):
         self.btn_del.setShortcutEnabled(False)
         self.btn_dnf.setShortcutEnabled(False)
         self.btn_plus2.setShortcutEnabled(False)
-        self.main_holder.setCurrentIndex(0)
+        self.control_deck_holder.setCurrentIndex(0)
     
     def _state_paused(self, sig):
         self.btn_start.setEnabled(True)
@@ -232,25 +194,25 @@ class control_deck(object):
         self.btn_del.setShortcutEnabled(True)
         self.btn_dnf.setShortcutEnabled(True)
         self.btn_plus2.setShortcutEnabled(True)
-        self.main_holder.setCurrentIndex(1)
+        self.control_deck_holder.setCurrentIndex(1)
 
-class display(object):
+class display():
     def __init__(self, Form):
 
-        Form.resize(756, 330)
+        #Form.resize(756, 330)
 
         #region hierarchy
 
         #endregion hierarchy
         
         #region Creating Layers
-        self.main_holder = QtWidgets.QSplitter(Form)
+        self.display_holder = QtWidgets.QSplitter(Form)
 
-        layoutWidget = QtWidgets.QWidget(self.main_holder)
-        self._colon = QtWidgets.QLabel(self.main_holder)
-        layoutWidget_2 = QtWidgets.QWidget(self.main_holder)
-        self._colon2 = QtWidgets.QLabel(self.main_holder)
-        layoutWidget_3 = QtWidgets.QWidget(self.main_holder)
+        layoutWidget = QtWidgets.QWidget(self.display_holder)
+        self._colon = QtWidgets.QLabel(self.display_holder)
+        layoutWidget_2 = QtWidgets.QWidget(self.display_holder)
+        self._colon2 = QtWidgets.QLabel(self.display_holder)
+        layoutWidget_3 = QtWidgets.QWidget(self.display_holder)
         
         minutes = QtWidgets.QHBoxLayout(layoutWidget)
         seconds = QtWidgets.QHBoxLayout(layoutWidget_2)
@@ -260,7 +222,7 @@ class display(object):
         #region SetObjectName
         Form.setObjectName("Display")
 
-        self.main_holder.setObjectName("main_holder")
+        self.display_holder.setObjectName("display_holder")
 
         layoutWidget.setObjectName("layoutWidget")
         layoutWidget_2.setObjectName("layoutWidget_2")
@@ -301,31 +263,22 @@ class display(object):
         self._colon2.setAlignment(QtCore.Qt.AlignCenter)
         self._colon2.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         
-        self.main_holder.setOpaqueResize(False)
-        self.main_holder.setHandleWidth(0)
-        self.main_holder.setChildrenCollapsible(False)
+        self.display_holder.setOpaqueResize(False)
+        self.display_holder.setHandleWidth(0)
+        self.display_holder.setChildrenCollapsible(False)
         
         minutes.setSpacing(10)
         seconds.setSpacing(10)
         milliseconds.setSpacing(10)
         #endregion Other Layer Properties
         
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
-
-    def retranslateUi(self, Form):
-        _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
-        
-        #region Colon text
-        self._colon.setText(_translate("Form", """<html><head></head><body ><span style=" font-size:72pt;">:</span></body></html>"""))
-        self._colon2.setText(_translate("Form", """<html><head></head><body ><span style=" font-size:72pt;">:</span></body></html>"""))
-        #endregion Colon text
-
-class Ui_Timer(object):
+class Ui_Timer(control_deck, display):
     def __init__(self, Form):
         Form.setObjectName("Timer")
-        Form.resize(660, 294)
+        Form.resize(420, 80)
+
+        control_deck.__init__(self, Form)
+        display.__init__(self, Form)
 
         #Layout for Main Window
         verticalLayout = QtWidgets.QVBoxLayout(Form)
@@ -335,19 +288,17 @@ class Ui_Timer(object):
         timer_holder = QtWidgets.QVBoxLayout()
         timer_holder.setObjectName("timer")
 
-        #LCD Object Creation and Adding Inside Main Timer Widget
-        self.lcd = display(Form)
-        timer_holder.addWidget(self.lcd.main_holder)
+        #Adding Display Holder
+        timer_holder.addWidget(self.display_holder)
 
-        #Horizontal Spacer Between LCD and Contols
+        #Horizontal Spacer Between Display and Contols
         spacerItem = QtWidgets.QSpacerItem(646, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         timer_holder.addItem(spacerItem)
 
-        #Time Controller Object Creation and Adding Inside Main Timer Widget
-        self.controller = control_deck(Form)
-        timer_holder.addWidget(self.controller.main_holder)
+        #Adding Control Deck Holder
+        timer_holder.addWidget(self.control_deck_holder)
 
-        #Verrtical Layout to Hold Spacer, Time Controller and LCD in Place
+        #Vertical Layout to Hold Spacer, Control Deck and Display in Place
         verticalLayout.addLayout(timer_holder)
 
         self.retranslateUi(Form)
@@ -356,6 +307,32 @@ class Ui_Timer(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Timer", "Timer"))
+
+        #region Shortcuts
+        self.btn_start.setShortcut(_translate("Form", "Space"))
+        self.btn_pause.setShortcut(_translate("Form", "Space"))
+        self.btn_reset.setShortcut(_translate("Form", "Return"))
+        self.btn_ok.setShortcut(_translate("Form", "Return"))
+        self.btn_dnf.setShortcut(_translate("Form", "Esc"))
+        self.btn_del.setShortcut(_translate("Form", "Del"))
+        self.btn_plus2.setShortcut(_translate("Form", "+"))
+        #endregion Shortcuts
+
+        #region Btn Texts
+        self.btn_start.setText(_translate("Form", "Start"))
+        self.btn_pause.setText(_translate("Form", "Pause"))
+        self.btn_reset.setText(_translate("Form", "Reset"))
+        self.btn_records.setText(_translate("Form", "Records"))
+        self.btn_ok.setText(_translate("Form", "OK"))
+        self.btn_del.setText(_translate("Form", "Del"))
+        self.btn_dnf.setText(_translate("Form", "DNF"))
+        self.btn_plus2.setText(_translate("Form", "+2"))
+        #endregion Btn Texts
+
+        #region Colon text
+        self._colon.setText(_translate("Form", """<html><head></head><body ><span style=" font-size:72pt;">:</span></body></html>"""))
+        self._colon2.setText(_translate("Form", """<html><head></head><body ><span style=" font-size:72pt;">:</span></body></html>"""))
+        #endregion Colon text
 
 if __name__ == "__main__":
     import sys
