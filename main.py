@@ -5,6 +5,7 @@ from timer_fnxs import Time_calc
 from record_handler import RecordHandler
 import sys
 from threading import Thread
+from math import inf
 
 class Timer():
     def __init__(self, Form):
@@ -17,13 +18,13 @@ class Timer():
         
     def SetupUI(self):
         self.timer_thread.start()
-        self.ui.controller.btn_start.clicked.connect(self.start_clicked)
-        self.ui.controller.btn_pause.clicked.connect(self.pause_clicked)
-        self.ui.controller.btn_reset.clicked.connect(self.reset_clicked)
-        self.ui.controller.btn_del.clicked.connect(self.del_clicked)
-        self.ui.controller.btn_dnf.clicked.connect(self.dnf_clicked)
-        self.ui.controller.btn_ok.clicked.connect(self.ok_clicked)
-        self.ui.controller.btn_plus2.clicked.connect(self.plus2_clicked)
+        self.ui.btn_start.clicked.connect(self.start_clicked)
+        self.ui.btn_pause.clicked.connect(self.pause_clicked)
+        self.ui.btn_reset.clicked.connect(self.reset_clicked)
+        self.ui.btn_del.clicked.connect(self.del_clicked)
+        self.ui.btn_dnf.clicked.connect(self.dnf_clicked)
+        self.ui.btn_ok.clicked.connect(self.ok_clicked)
+        self.ui.btn_plus2.clicked.connect(self.plus2_clicked)
 
 
     def start_clicked(self, foo):
@@ -46,7 +47,7 @@ class Timer():
         self.reset_disp()
 
     def dnf_clicked(self, foo):
-        self._recorder.update("3x3", "dnf")
+        self._recorder.update("3x3", inf)
         self._time_measurer.reset()
         self.reset_disp()
 
@@ -57,17 +58,15 @@ class Timer():
 
     def reset_disp(self):
         for i in range(6):
-            self.ui.lcd.lcd[i].display(0)
+            self.ui.lcd[i].display(0)
 
     def update_lcd(self):
         while self.app_running:
             while self._time_measurer.state == 1:
                 el = self._time_measurer.parser(str(time_ns() - self._time_measurer.initial))
                 for i in range(6):
-                    self.ui.lcd.lcd[i].display(int(el[i]))
+                    self.ui.lcd[i].display(int(el[i]))
                 sleep(0.01)
-                
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
