@@ -153,13 +153,6 @@ class control_deck():
         self.btn_del.setEnabled(False)
         self.btn_dnf.setEnabled(False)
         self.btn_plus2.setEnabled(False)
-        self.btn_start.setShortcutEnabled(True)
-        self.btn_pause.setShortcutEnabled(False)
-        self.btn_reset.setShortcutEnabled(False)
-        self.btn_ok.setShortcutEnabled(False)
-        self.btn_del.setShortcutEnabled(False)
-        self.btn_dnf.setShortcutEnabled(False)
-        self.btn_plus2.setShortcutEnabled(False)
         self.control_deck_holder.setCurrentIndex(0)
     
     def _state_running(self, sig):
@@ -170,13 +163,6 @@ class control_deck():
         self.btn_del.setEnabled(False)
         self.btn_dnf.setEnabled(False)
         self.btn_plus2.setEnabled(False)
-        self.btn_start.setShortcutEnabled(False)
-        self.btn_pause.setShortcutEnabled(True)
-        self.btn_reset.setShortcutEnabled(True)
-        self.btn_ok.setShortcutEnabled(False)
-        self.btn_del.setShortcutEnabled(False)
-        self.btn_dnf.setShortcutEnabled(False)
-        self.btn_plus2.setShortcutEnabled(False)
         self.control_deck_holder.setCurrentIndex(0)
     
     def _state_paused(self, sig):
@@ -187,13 +173,6 @@ class control_deck():
         self.btn_del.setEnabled(True)
         self.btn_dnf.setEnabled(True)
         self.btn_plus2.setEnabled(True)
-        self.btn_start.setShortcutEnabled(False)
-        self.btn_pause.setShortcutEnabled(False)
-        self.btn_reset.setShortcutEnabled(False)
-        self.btn_ok.setShortcutEnabled(True)
-        self.btn_del.setShortcutEnabled(True)
-        self.btn_dnf.setShortcutEnabled(True)
-        self.btn_plus2.setShortcutEnabled(True)
         self.control_deck_holder.setCurrentIndex(1)
 
 class display():
@@ -307,16 +286,6 @@ class Ui_Timer(control_deck, display):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Timer", "Timer"))
-
-        #region Shortcuts
-        self.btn_start.setShortcut(_translate("Form", "Space"))
-        self.btn_pause.setShortcut(_translate("Form", "Space"))
-        self.btn_reset.setShortcut(_translate("Form", "Return"))
-        self.btn_ok.setShortcut(_translate("Form", "Return"))
-        self.btn_dnf.setShortcut(_translate("Form", "Esc"))
-        self.btn_del.setShortcut(_translate("Form", "Del"))
-        self.btn_plus2.setShortcut(_translate("Form", "+"))
-        #endregion Shortcuts
 
         #region Btn Texts
         self.btn_start.setText(_translate("Form", "Start"))
