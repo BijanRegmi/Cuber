@@ -44,9 +44,6 @@ class control_deck():
         #endregion SetObjectName
         
         #region Button Properties
-        self.btn_pause.setEnabled(False)
-        self.btn_reset.setEnabled(False)
-        
         self.btn_pause.setCheckable(True)
         self.btn_records.setCheckable(True)
         self.btn_reset.setCheckable(True)
@@ -145,7 +142,9 @@ class control_deck():
         horizontalLayout_7.addLayout(layout_timer_controls)
         #endregion ADDING LAYOUTS
 
-    def _state_stopped(self, sig):
+        self._state_stopped()
+    
+    def _state_stopped(self, sig=None):
         self.btn_start.setEnabled(True)
         self.btn_pause.setEnabled(False)
         self.btn_reset.setEnabled(False)
@@ -155,7 +154,7 @@ class control_deck():
         self.btn_plus2.setEnabled(False)
         self.control_deck_holder.setCurrentIndex(0)
     
-    def _state_running(self, sig):
+    def _state_running(self, sig=None):
         self.btn_start.setEnabled(False)
         self.btn_pause.setEnabled(True)
         self.btn_reset.setEnabled(True)
@@ -165,7 +164,7 @@ class control_deck():
         self.btn_plus2.setEnabled(False)
         self.control_deck_holder.setCurrentIndex(0)
     
-    def _state_paused(self, sig):
+    def _state_paused(self, sig=None):
         self.btn_start.setEnabled(True)
         self.btn_pause.setEnabled(False)
         self.btn_reset.setEnabled(False)
