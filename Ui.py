@@ -143,6 +143,48 @@ class control_deck():
         #endregion ADDING LAYOUTS
 
         self._state_stopped()
+        self.setShortcuts(Form)
+    
+    def setShortcuts(self, Form):
+        shortcut_dict = {
+            "Space": self._space,
+            "Return": self._enter,
+            "Del": self._delete,
+            "Ctrl + R": self._records,
+            "+": self._plus2,
+            "Backspace": self._dnf,
+            "Esc": self._esc
+        }
+        for key, fxn in shortcut_dict.items():
+            x = QtWidgets.QShortcut(QtGui.QKeySequence(key), Form)
+            x.activated.connect(fxn)
+    
+    def _space(self):
+        if self.btn_start.isEnabled():
+            self.btn_start.click()
+        elif self.btn_pause.isEnabled():
+            self.btn_pause.click()
+    
+    def _enter(self):
+        self.btn_ok.click()
+        self.btn_reset.click()
+    
+    def _delete(self):
+        self.btn_del.click()
+    
+    def _records(self):
+        self.btn_records.click()
+
+    def _plus2(self):
+        self.btn_plus2.click()
+    
+    def _dnf(self):
+        self.btn_dnf.click()
+    
+    def _esc(self):
+        self.btn_reset.click()
+        self.btn_del.click()
+        QtCore.QCoreApplication.instance().quit()
     
     def _state_stopped(self, sig=None):
         self.btn_start.setEnabled(True)
