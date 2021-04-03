@@ -58,5 +58,5 @@ class RecordHandler():
 if __name__ == "__main__":
     handler = RecordHandler()
     for x,y in enumerate([11,"dnf",17]):
-        handler.update("3x3", y)
+        handler.update("3x3", y, time_ns())
     handler.close()
