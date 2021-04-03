@@ -36,6 +36,14 @@ class Time_calc():
         sec = str(t_s % 60).zfill(2)
         return minu + sec + res[4:6]
 
+    def date_parser(self, val):
+        val = val/(10**9)
+        val = time.localtime(val)
+        date = []
+        for j in val:
+            date.append(str(j))
+        return str(date[0]+"/"+date[1]+"/"+date[2]+" "+date[3]+":"+date[4]+":"+date[5])
+
 if __name__ == "__main__":
     tim = Time_calc()
 
