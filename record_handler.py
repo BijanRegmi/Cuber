@@ -12,7 +12,7 @@ class RecordHandler():
                 self.datas = {"metadata":{"count":{},"best":{},"average":{}},"datas":{}}
                 f.write(str(self.datas))
 
-    def update(self, mode:str, time:float, date:float=time_ns(), comment:str=""):
+    def update(self, mode:str, time:float, date:float, comment:str=""):
         
         if not (mode in self.datas["metadata"]["count"].keys()):
             #FIRST TIME
