@@ -6,6 +6,7 @@ from record_handler import RecordHandler
 import sys
 from threading import Thread
 from math import inf
+from Records import Ui_Records
 
 class Timer():
     def __init__(self, Form):
@@ -21,6 +22,7 @@ class Timer():
         self.ui.btn_start.clicked.connect(self.start_clicked)
         self.ui.btn_pause.clicked.connect(self.pause_clicked)
         self.ui.btn_reset.clicked.connect(self.reset_clicked)
+        self.ui.btn_records.clicked.connect(self.records_clicked)
         self.ui.btn_del.clicked.connect(self.del_clicked)
         self.ui.btn_dnf.clicked.connect(self.dnf_clicked)
         self.ui.btn_ok.clicked.connect(self.ok_clicked)
@@ -38,7 +40,7 @@ class Timer():
         self.reset_disp()
 
     def ok_clicked(self, foo):
-        self._recorder.update("3x3", self._time_measurer.elapsed)
+        self._recorder.update("3x3", self._time_measurer.elapsed, time_ns())
         self._time_measurer.reset()
         self.reset_disp()
 
@@ -47,19 +49,25 @@ class Timer():
         self.reset_disp()
 
     def dnf_clicked(self, foo):
-        self._recorder.update("3x3", inf)
+        self._recorder.update("3x3", inf, time_ns())
         self._time_measurer.reset()
         self.reset_disp()
 
     def plus2_clicked(self, foo):
-        self._recorder.update("3x3", self._time_measurer.elapsed + 2000000000, comment="+2'ed")
+        self._recorder.update("3x3", self._time_measurer.elapsed + 2000000000, time_ns(), comment="+2'ed")
         self._time_measurer.reset()
         self.reset_disp()
 
+    def records_clicked(self, foo):
+        rec_win = Ui_Records()
+        rec_win.set_modes(self._recorder.datas)
+        rec_win.set_table_datas(self._recorder.datas)
+        rec_win.reload_datas.clicked.connect(lambda x: rec_win.set_table_datas(self._recorder.datas))
+    
     def reset_disp(self):
         for i in range(6):
             self.ui.lcd[i].display(0)
-
+    
     def update_lcd(self):
         while self.app_running:
             while self._time_measurer.state == 1:
@@ -69,6 +77,7 @@ class Timer():
                 sleep(0.01)
 
 if __name__ == "__main__":
+    print(time_ns())
     app = QApplication(sys.argv)
     main_window = QWidget()
     ui = Timer(main_window)
