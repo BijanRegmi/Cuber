@@ -52,6 +52,14 @@ class control_deck():
         self.btn_dnf.setCheckable(True)
         self.btn_ok.setCheckable(True)
         self.btn_plus2.setCheckable(True)
+        self.btn_pause.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.btn_records.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.btn_reset.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.btn_start.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.btn_del.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.btn_dnf.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.btn_ok.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.btn_plus2.setFocusPolicy(QtCore.Qt.NoFocus)
         #endregion Button Properties
 
         #region Setting Icons
