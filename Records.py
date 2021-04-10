@@ -1,6 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from timer_fnxs import Time_calc
-
+try:
+    from .timer_fnxs import Time_calc
+except:
+    from timer_fnxs import Time_calc
 class Ui_Records(object):
     def __init__(self):
         self.main_window = QtWidgets.QWidget()
