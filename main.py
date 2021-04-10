@@ -1,34 +1,40 @@
-from Ui import Ui_Timer
-from PyQt5.QtWidgets import QWidget,QApplication
+try:
+    from .Ui import Ui_Timer
+    from .timer_fnxs import Time_calc
+    from .record_handler import RecordHandler
+    from .Records import Ui_Records
+except:
+    from Ui import Ui_Timer
+    from timer_fnxs import Time_calc
+    from record_handler import RecordHandler
+    from Records import Ui_Records
 from time import time_ns, sleep
-from timer_fnxs import Time_calc
-from record_handler import RecordHandler
+from PyQt5.QtWidgets import QWidget,QApplication
 import sys
 from threading import Thread
 from math import inf
-from Records import Ui_Records
 
-class Timer():
-    def __init__(self, Form):
+class Timer(QWidget):
+    def __init__(self, parent: QWidget):
+        super().__init__(parent)
         self.timer_thread = Thread(target=self.update_lcd)
         self.app_running = True
-        self.ui = Ui_Timer(Form)
+        self.ui = Ui_Timer(parent)
         self._time_measurer = Time_calc()
         self._recorder = RecordHandler()
         self.SetupUI()
         
     def SetupUI(self):
         self.timer_thread.start()
-        self.ui.btn_start.clicked.connect(self.start_clicked)
-        self.ui.btn_pause.clicked.connect(self.pause_clicked)
-        self.ui.btn_reset.clicked.connect(self.reset_clicked)
-        self.ui.btn_records.clicked.connect(self.records_clicked)
-        self.ui.btn_del.clicked.connect(self.del_clicked)
-        self.ui.btn_dnf.clicked.connect(self.dnf_clicked)
-        self.ui.btn_ok.clicked.connect(self.ok_clicked)
-        self.ui.btn_plus2.clicked.connect(self.plus2_clicked)
-
-
+        self.ui.deck.buttons[0].clicked.connect(self.start_clicked)
+        self.ui.deck.buttons[1].clicked.connect(self.pause_clicked)
+        self.ui.deck.buttons[2].clicked.connect(self.reset_clicked)
+        self.ui.deck.buttons[3].clicked.connect(self.records_clicked)
+        self.ui.deck.buttons[4].clicked.connect(self.del_clicked)
+        self.ui.deck.buttons[5].clicked.connect(self.dnf_clicked)
+        self.ui.deck.buttons[6].clicked.connect(self.ok_clicked)
+        self.ui.deck.buttons[7].clicked.connect(self.plus2_clicked)
+        
     def start_clicked(self, foo):
         self._time_measurer.start()
 
@@ -66,14 +72,14 @@ class Timer():
     
     def reset_disp(self):
         for i in range(6):
-            self.ui.lcd[i].display(0)
+            self.ui.disp.lcd[i].display(0)
     
     def update_lcd(self):
         while self.app_running:
             while self._time_measurer.state == 1:
                 el = self._time_measurer.parser(str(time_ns() - self._time_measurer.initial))
                 for i in range(6):
-                    self.ui.lcd[i].display(int(el[i]))
+                    self.ui.disp.lcd[i].display(int(el[i]))
                 sleep(0.01)
 
 if __name__ == "__main__":
@@ -85,3 +91,4 @@ if __name__ == "__main__":
     app.exec_()
     ui._recorder.close()
     ui.app_running = False
+    ui.timer_thread.join()
