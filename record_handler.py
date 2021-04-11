@@ -38,6 +38,7 @@ class RecordHandler():
                 self.datas["metadata"]["average"][mode] = (avg * c + time) / (c + 1)
         
         self.datas["datas"][mode].append([{"date":date, "time":time, "comment":comment}])
+        self.close()
 
     def average(self, mode, n):
         if len(self.datas["datas"][mode]) < n:
