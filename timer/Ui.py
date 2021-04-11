@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from pathlib import Path
 
 class control_deck(QtWidgets.QStackedWidget):
     def __init__(self, parent):
@@ -29,7 +30,7 @@ class control_deck(QtWidgets.QStackedWidget):
         #endregion Button Properties
 
         #region Setting Icons
-        folder_path = "Timer_assest/"
+        folder_path = str(Path(__file__).parent /'Timer_assest') + "/"
         for idx, name in enumerate(["start.png", "pause.png", "reset.png", "records.png", "delete.png", None, "ok.png", None]):
             if name != None:
                 icon = QtGui.QIcon()
