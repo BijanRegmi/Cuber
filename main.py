@@ -10,22 +10,24 @@ except:
     from Records import Ui_Records
 from time import time_ns, sleep
 from PyQt5.QtWidgets import QWidget,QApplication
-import sys
-from threading import Thread
+from PyQt5.QtCore import QTimer
 from math import inf
 
 class Timer(QWidget):
     def __init__(self, parent: QWidget):
         super().__init__(parent)
-        self.timer_thread = Thread(target=self.update_lcd)
-        self.app_running = True
+        
         self.ui = Ui_Timer(parent)
         self._time_measurer = Time_calc()
         self._recorder = RecordHandler()
         self.SetupUI()
+
+        lcd_updater = QTimer(self)
+        lcd_updater.setInterval(10)
+        lcd_updater.timeout.connect(self.update_lcd)
+        lcd_updater.start()
         
     def SetupUI(self):
-        self.timer_thread.start()
         self.ui.deck.buttons[0].clicked.connect(self.start_clicked)
         self.ui.deck.buttons[1].clicked.connect(self.pause_clicked)
         self.ui.deck.buttons[2].clicked.connect(self.reset_clicked)
@@ -55,7 +57,7 @@ class Timer(QWidget):
         self.reset_disp()
 
     def dnf_clicked(self, foo):
-        self._recorder.update("3x3", inf, time_ns())
+        self._recorder.update("3x3", inf, time_ns(), "dnf")
         self._time_measurer.reset()
         self.reset_disp()
 
@@ -75,20 +77,15 @@ class Timer(QWidget):
             self.ui.disp.lcd[i].display(0)
     
     def update_lcd(self):
-        while self.app_running:
-            while self._time_measurer.state == 1:
-                el = self._time_measurer.parser(str(time_ns() - self._time_measurer.initial))
-                for i in range(6):
-                    self.ui.disp.lcd[i].display(int(el[i]))
-                sleep(0.01)
+        if self._time_measurer.state == 1:
+            el = self._time_measurer.parser(str(time_ns() - self._time_measurer.initial))
+            for i in range(6):
+                self.ui.disp.lcd[i].display(int(el[i]))
 
 if __name__ == "__main__":
-    print(time_ns())
+    import sys
     app = QApplication(sys.argv)
     main_window = QWidget()
     ui = Timer(main_window)
     main_window.show()
     app.exec_()
-    ui._recorder.close()
-    ui.app_running = False
-    ui.timer_thread.join()
