@@ -4,6 +4,6 @@ test*.*
 *.txt
 *.json
 
-__pycache__/
-.vscode/
+**/__pycache__/
+**/.vscode/
 Ui_Files/
