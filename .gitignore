@@ -1,7 +1,7 @@
 *.pyold
 test*.*
 *.bak
-*.txt
+To_do.txt
 *.json
 
 **/__pycache__/
